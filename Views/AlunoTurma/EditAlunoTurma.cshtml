@@ -1,0 +1,58 @@
+﻿@model TesteProjetoFront.Models.AlunoTurma
+
+<h1>Relacionar Aluno e Turma</h1>
+
+<form asp-action="EditAlunoTurma">
+    <div class="form-group">
+        <label>Aluno:</label>
+        <select asp-for="IdAluno" class="form-control">
+            <option value="">Selecione um Aluno</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Turma:</label>
+        <select asp-for="IdTurma" class="form-control">
+            <option value="">Selecione uma Turma</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Relacionar</button>
+</form>
+
+@section Scripts {
+    <script>
+        function carregarAlunos(idTurma) {
+            $.get("/AlunoTurma/GetAlunosDisponiveis?idTurma=" + idTurma, function (data) {
+                var dropdown = $("#IdAluno");
+                dropdown.empty();
+                dropdown.append($('<option>').val("").text("Selecione um Aluno"));
+                $.each(data, function (index, aluno) {
+                    dropdown.append($('<option>').val(aluno.id).text(aluno.nome));
+                });
+            });
+        }
+
+        function carregarTurmas(idAluno) {
+            $.get("/AlunoTurma/GetTurmasDisponiveis?idAluno=" + idAluno, function (data) {
+                var dropdown = $("#IdTurma");
+                dropdown.empty();
+                dropdown.append($('<option>').val("").text("Selecione uma Turma"));
+                if (data.length === 0 && idAluno > 0) {
+                    alert("O Aluno selecionado não tem turmas disponíveis");
+                }
+                $.each(data, function (index, turma) {
+                    dropdown.append($('<option>').val(turma.id).text(turma.nome));
+                });
+            });
+        }
+
+        $(document).ready(function () {
+            carregarAlunos(0);
+            carregarTurmas(0);
+        });
+
+        $("#IdAluno").change(function () {
+            var idAlunoSelecionado = $(this).val();
+            carregarTurmas(idAlunoSelecionado);
+        });
+    </script>
+}

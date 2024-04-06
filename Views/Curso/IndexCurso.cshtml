@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TesteProjetoFront.Models.Curso>
+@{
+    ViewData["Title"] = "Lista de Cursos";
+}
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Duração - Semestres</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var curso in Model)
+        {
+            <tr>
+                <td>@curso.Nome</td>
+                <td>@curso.DuracaoSemestre</td>
+                <td>
+                    <a asp-action="EditCurso" asp-route-id="@curso.Id"><img src="~/images/icons/edit.svg" alt="Editar" class="icons" /></a>
+                    <a href="#" onclick="confirmarExclusao('@curso.Id', '@curso.Nome')"><img src="~/images/icons/delete.svg" alt="Excluir" class="icons" /></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function confirmarExclusao(id, nome) {
+        if (confirm('Tem certeza que deseja excluir o curso ' + nome + ' ?')) {
+            $.ajax({
+                url: '/Curso/DeleteCurso?id=' + id,
+                method: 'POST',
+                success: function (data) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    alert('Ocorreu um erro ao excluir o curso.');
+                }
+            });
+        }
+    }
+</script>
