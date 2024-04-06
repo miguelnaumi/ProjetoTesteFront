@@ -2,6 +2,7 @@
 using TesteProjetoFront.Models;
 using TesteProjetoFront.Repositories;
 using System.Linq;
+using Microsoft.CodeAnalysis.Scripting;
 
 namespace TesteProjetoFront.Services
 {
@@ -26,11 +27,13 @@ namespace TesteProjetoFront.Services
 
         public async Task AddAluno(Aluno aluno)
         {
+            aluno.Senha = PasswordHasher.HashPassword(aluno.Senha);
             await _alunoRepository.Add(aluno);
         }
 
         public async Task UpdateAluno(Aluno aluno)
         {
+            aluno.Senha = PasswordHasher.HashPassword(aluno.Senha);
             await _alunoRepository.Update(aluno);
         }
 
