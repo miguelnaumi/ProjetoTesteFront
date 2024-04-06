@@ -1,5 +1,30 @@
-﻿@page
-@model TesteProjetoFront.Views.Home.IndexHomeModel
-@{
-}
+﻿@model TesteProjetoFront.Models.HomeModel
 
+<h1>Relatório</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Cursos</h5>
+                <p class="card-text">Número de cursos cadastrados: @Model.NumCursos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Turmas</h5>
+                <p class="card-text">Número de turmas cadastradas: @Model.NumTurmas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Alunos</h5>
+                <p class="card-text">Número de alunos cadastrados: @Model.NumAlunos</p>
+            </div>
+        </div>
+    </div>
+</div>

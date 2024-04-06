@@ -12,9 +12,5 @@ namespace TesteProjetoFront.Views.Home
             _logger = logger;
         }
 
-        public void OnGet()
-        {
-
-        }
     }
 }

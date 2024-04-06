@@ -21,6 +21,7 @@ builder.Services.AddScoped<ITurmaRepository, TurmaRepository>();
 builder.Services.AddScoped<ITurmaService, TurmaService>();
 builder.Services.AddScoped<IAlunoTurmaRepository, AlunoTurmaRepository>();
 builder.Services.AddScoped<IAlunoTurmaService, AlunoTurmaService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
 
 
 //builder.Services.AddScoped<IRelacionarRepository, RelacionarRepository>();

@@ -31,6 +31,16 @@ namespace TesteProjetoFront.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTurma(Turma turma)
         {
+            var turmas = await _turmaService.GetAll();
+            var existingTurma = turmas.Any(t => t.Nome == turma.Nome);
+            if (existingTurma)
+            {
+                ModelState.AddModelError("Nome", "Já existe uma turma com este nome.");
+                var cursos = _turmaService.GetCursosAsSelectListItems();
+                turma.Cursos = cursos;
+                return View(turma);
+            }
+
             await _turmaService.AddTurma(turma);
             return RedirectToAction("IndexTurma");
         }
